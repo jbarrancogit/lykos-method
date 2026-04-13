@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lykos Method — Preview de Plataforma</title>
+<link rel="icon" href="logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Hanken+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#060606;--bg2:#0e0e0e;--bg3:#161616;--bg4:#1e1e1e;
+  --line:#1e1e1e;--line2:#2a2a2a;
+  --gold:#d4a94a;--gold-b:#f2c15e;--gold-d:#a88538;
+  --text:#f5f5f5;--text2:#a8a8a8;--text3:#6a6a6a;
+  --green:#3ddc84;--red:#ff6b6b;--blue:#64b5f6;
+  --display:"Fraunces",serif;--body:"Hanken Grotesk",sans-serif;--mono:"JetBrains Mono",monospace;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--body);background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;background:none;border:none;color:inherit}
+img{max-width:100%;display:block}
+
+/* Layout */
+.app{display:grid;grid-template-columns:240px 1fr;grid-template-rows:56px 1fr;min-height:100vh}
+@media(max-width:800px){.app{grid-template-columns:1fr;grid-template-rows:56px auto 1fr}.sidebar{display:none}.sidebar.open{display:flex;grid-row:2}
+}
+
+/* Top bar */
+.topbar{grid-column:1/-1;background:var(--bg2);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:10}
+.topbar .brand{font-family:var(--display);font-size:1rem;letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.topbar .brand em{font-style:italic;color:var(--gold);text-transform:lowercase;letter-spacing:.03em}
+.topbar .view-switch{display:flex;gap:4px;background:var(--bg3);border-radius:99px;padding:3px}
+.topbar .view-switch button{padding:6px 16px;border-radius:99px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);transition:all .3s ease}
+.topbar .view-switch button.active{background:var(--gold);color:#060606;font-weight:500}
+.topbar .user{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text2)}
+.topbar .avatar{width:32px;height:32px;border-radius:50%;background:var(--gold-d);display:grid;place-items:center;font-family:var(--display);font-size:14px;font-style:italic;color:#060606;font-weight:500}
+.topbar .badge{font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:99px;text-transform:uppercase;letter-spacing:.1em}
+.topbar .badge-admin{background:var(--gold);color:#060606}
+.topbar .badge-alumno{background:var(--blue);color:#060606}
+
+/* Sidebar */
+.sidebar{background:var(--bg2);border-right:1px solid var(--line);padding:20px 0;display:flex;flex-direction:column;gap:4px;overflow-y:auto}
+.sidebar .nav-group{padding:0 16px;margin-bottom:16px}
+.sidebar .nav-label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;padding:0 12px}
+.sidebar .nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:6px;font-size:13px;color:var(--text2);transition:all .25s ease;cursor:pointer;position:relative}
+.sidebar .nav-item:hover{background:var(--bg3);color:var(--text)}
+.sidebar .nav-item.active{background:rgba(212,169,74,.1);color:var(--gold)}
+.sidebar .nav-item.active::before{content:"";position:absolute;left:0;top:20%;bottom:20%;width:2px;background:var(--gold);border-radius:2px}
+.sidebar .nav-item .icon{width:18px;text-align:center;font-size:14px;opacity:.7}
+.sidebar .nav-item .notif{margin-left:auto;background:var(--gold);color:#060606;font-family:var(--mono);font-size:9px;font-weight:600;padding:2px 6px;border-radius:99px}
+.sidebar-footer{margin-top:auto;padding:16px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em;text-align:center}
+
+/* Main content */
+.main{padding:28px 32px;overflow-y:auto;max-height:calc(100vh - 56px)}
+@media(max-width:800px){.main{padding:20px 16px}}
+
+/* Screen title */
+.screen-title{display:flex;align-items:baseline;gap:12px;margin-bottom:24px}
+.screen-title h1{font-family:var(--display);font-size:28px;font-weight:300;letter-spacing:-.02em}
+.screen-title h1 em{font-style:italic;color:var(--gold-b)}
+.screen-title .subtitle{font-size:13px;color:var(--text3)}
+
+/* Cards */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:28px}
+.stat-card{padding:20px;border:1px solid var(--line);border-radius:8px;background:var(--bg2)}
+.stat-card .label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+.stat-card .value{font-family:var(--display);font-size:32px;font-weight:300;font-style:italic;letter-spacing:-.02em}
+.stat-card .value.gold{color:var(--gold-b)}
+.stat-card .value.green{color:var(--green)}
+.stat-card .delta{font-family:var(--mono);font-size:10px;color:var(--green);margin-top:4px}
+
+/* Data table */
+.data-table{width:100%;border-collapse:collapse;font-size:13px}
+.data-table th{text-align:left;padding:10px 12px;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);border-bottom:1px solid var(--line2);font-weight:500}
+.data-table td{padding:12px;border-bottom:1px solid var(--line);vertical-align:middle}
+.data-table tr:hover td{background:var(--bg2)}
+.data-table .status{display:inline-block;padding:3px 10px;border-radius:99px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+.status-active{background:rgba(61,220,132,.12);color:var(--green)}
+.status-pending{background:rgba(212,169,74,.12);color:var(--gold)}
+.status-done{background:rgba(100,181,246,.12);color:var(--blue)}
+
+/* Exercise grid */
+.exercise-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.exercise-card{border:1px solid var(--line);border-radius:8px;overflow:hidden;transition:border-color .4s ease,transform .4s var(--ease)}
+.exercise-card:hover{border-color:var(--line2);transform:translateY(-3px)}
+.exercise-card .thumb{aspect-ratio:16/9;background:var(--bg3);position:relative;display:flex;align-items:center;justify-content:center}
+.exercise-card .thumb .play{width:40px;height:40px;border-radius:50%;background:rgba(212,169,74,.9);display:grid;place-items:center;font-size:16px;color:#060606;transition:transform .3s ease}
+.exercise-card:hover .play{transform:scale(1.1)}
+.exercise-card .info{padding:12px 14px}
+.exercise-card .info h4{font-size:13px;font-weight:500;margin-bottom:4px}
+.exercise-card .info .meta{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em}
+
+/* Routine builder */
+.builder{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px}
+@media(max-width:800px){.builder{grid-template-columns:1fr}}
+.builder-col{border:1px solid var(--line);border-radius:8px;padding:16px}
+.builder-col h3{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.builder-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:6px;margin-bottom:8px;font-size:13px;cursor:grab;transition:all .3s ease}
+.builder-item:hover{border-color:var(--gold);background:rgba(212,169,74,.04)}
+.builder-item .grip{color:var(--text3);font-size:16px;cursor:grab}
+.builder-item .sets{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em}
+
+/* Student view */
+.routine-day{border:1px solid var(--line);border-radius:8px;padding:20px;margin-bottom:14px}
+.routine-day .day-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.routine-day .day-name{font-family:var(--display);font-size:20px;font-weight:300}
+.routine-day .day-name em{font-style:italic;color:var(--gold-b)}
+.routine-day .exercise-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.routine-day .exercise-row:last-child{border-bottom:none}
+.routine-day .ex-thumb{width:48px;height:48px;border-radius:6px;background:var(--bg3);display:grid;place-items:center;font-size:18px;flex-shrink:0}
+.routine-day .ex-info{flex:1}
+.routine-day .ex-info h4{font-size:13px;font-weight:500;margin-bottom:2px}
+.routine-day .ex-info p{font-size:12px;color:var(--text3)}
+.routine-day .ex-check{width:24px;height:24px;border:2px solid var(--line2);border-radius:6px;display:grid;place-items:center;cursor:pointer;transition:all .3s ease}
+.routine-day .ex-check.done{background:var(--gold);border-color:var(--gold);color:#060606;font-size:14px}
+
+/* Feedback */
+.feedback-entry{border:1px solid var(--line);border-radius:8px;padding:16px;margin-bottom:12px}
+.feedback-entry .fb-header{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:12px;color:var(--text3)}
+.feedback-entry .fb-header .date{font-family:var(--mono);font-size:11px;letter-spacing:.06em}
+.feedback-entry p{font-size:13px;color:var(--text2);line-height:1.55}
+.feedback-entry .fb-video{margin-top:10px;aspect-ratio:16/9;max-width:320px;background:var(--bg3);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--text3)}
+
+/* Balance */
+.balance-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.balance-month{border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.balance-month .photo{aspect-ratio:3/4;background:var(--bg3);display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:11px}
+.balance-month .binfo{padding:10px 12px}
+.balance-month .binfo h4{font-size:13px;font-weight:500;margin-bottom:2px}
+.balance-month .binfo p{font-family:var(--mono);font-size:10px;color:var(--text3)}
+
+/* Anamnesis form */
+.form-section{margin-bottom:24px}
+.form-section h3{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:12px;color:var(--text3);margin-bottom:5px;font-weight:500}
+.form-group input,.form-group textarea,.form-group select{width:100%;background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:10px 12px;color:var(--text);font-family:var(--body);font-size:13px}
+.form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--gold)}
+.form-group textarea{min-height:80px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:600px){.form-row{grid-template-columns:1fr}}
+
+/* Buttons */
+.btn-sm{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-radius:6px;transition:all .3s ease}
+.btn-gold{background:var(--gold);color:#060606;font-weight:500}
+.btn-gold:hover{background:var(--gold-b)}
+.btn-outline{border:1px solid var(--line2);color:var(--text2)}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+
+/* Screen visibility */
+.screen{display:none}
+.screen.active{display:block}
+
+/* Banner preview */
+.preview-banner{background:linear-gradient(90deg,rgba(212,169,74,.1),transparent 70%);border:1px solid rgba(212,169,74,.25);border-radius:8px;padding:14px 20px;margin-bottom:24px;display:flex;align-items:center;gap:12px;font-size:12px;color:var(--text2)}
+.preview-banner strong{color:var(--gold)}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header class="topbar">
+    <div class="brand">LYKOS<em>method</em></div>
+    <div class="view-switch" id="viewSwitch">
+      <button class="active" data-view="admin">Vista Admin</button>
+      <button data-view="alumno">Vista Alumno</button>
+    </div>
+    <div class="user" id="userInfo">
+      <div class="avatar">EN</div>
+      <span>Enzo Nievas</span>
+      <span class="badge badge-admin">Admin</span>
+    </div>
+  </header>
+
+  <nav class="sidebar" id="sidebar">
+    <!-- Admin nav -->
+    <div class="nav-group" id="navAdmin">
+      <div class="nav-label">Administración</div>
+      <div class="nav-item active" data-screen="admin-dashboard"><span class="icon">◉</span> Dashboard<span class="notif">3</span></div>
+      <div class="nav-item" data-screen="admin-biblioteca"><span class="icon">▶</span> Biblioteca</div>
+      <div class="nav-item" data-screen="admin-planificar"><span class="icon">☰</span> Planificar</div>
+      <div class="nav-item" data-screen="admin-alumnos"><span class="icon">◎</span> Alumnos<span class="notif">2</span></div>
+      <div class="nav-item" data-screen="admin-pagos"><span class="icon">$</span> Pagos</div>
+    </div>
+    <!-- Alumno nav -->
+    <div class="nav-group" id="navAlumno" style="display:none">
+      <div class="nav-label">Mi cuenta</div>
+      <div class="nav-item active" data-screen="alumno-rutina"><span class="icon">☰</span> Mi Rutina</div>
+      <div class="nav-item" data-screen="alumno-feedback"><span class="icon">✎</span> Feedback</div>
+      <div class="nav-item" data-screen="alumno-videos"><span class="icon">▶</span> Mis Videos</div>
+      <div class="nav-item" data-screen="alumno-balance"><span class="icon">◧</span> Balance</div>
+      <div class="nav-item" data-screen="alumno-anamnesis"><span class="icon">♡</span> Mi Perfil</div>
+    </div>
+    <div class="sidebar-footer">Preview · no funcional<br>Lykos Method © 2026</div>
+  </nav>
+
+  <main class="main" id="mainContent">
+    <div class="preview-banner">
+      <strong>Preview visual</strong> — Esta es una maqueta estática de cómo se vería la plataforma. No tiene funcionalidad real, solo muestra el diseño de cada pantalla.
+    </div>
+
+    <!-- ==================== ADMIN SCREENS ==================== -->
+
+    <!-- Admin Dashboard -->
+    <div class="screen active" id="admin-dashboard">
+      <div class="screen-title">
+        <h1>Dashboard <em>admin</em></h1>
+        <span class="subtitle">Resumen de tu negocio</span>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="label">Alumnos activos</div>
+          <div class="value gold">12</div>
+          <div class="delta">+3 este mes</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Ingresos del mes</div>
+          <div class="value green">$186.000</div>
+          <div class="delta">+22% vs. mes anterior</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Feedback pendiente</div>
+          <div class="value" style="color:var(--gold-b)">3</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Videos por revisar</div>
+          <div class="value" style="color:var(--blue)">5</div>
+        </div>
+      </div>
+      <h3 style="font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:12px">Actividad reciente</h3>
+      <table class="data-table">
+        <thead><tr><th>Alumno</th><th>Acción</th><th>Fecha</th><th>Estado</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Martín Rojas</strong></td><td>Subió video · Sentadilla profunda</td><td>Hoy, 14:30</td><td><span class="status status-pending">Pendiente</span></td></tr>
+          <tr><td><strong>Lucía Fernández</strong></td><td>Completó feedback diario</td><td>Hoy, 10:15</td><td><span class="status status-done">Leído</span></td></tr>
+          <tr><td><strong>Carlos Méndez</strong></td><td>Subió fotos de balance mensual</td><td>Ayer, 18:40</td><td><span class="status status-pending">Pendiente</span></td></tr>
+          <tr><td><strong>Ana Torres</strong></td><td>Completó anamnesis inicial</td><td>10/04</td><td><span class="status status-active">Activo</span></td></tr>
+          <tr><td><strong>Diego Peralta</strong></td><td>Pago Plan 02 · Mercado Pago</td><td>09/04</td><td><span class="status status-active">Confirmado</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Admin Biblioteca -->
+    <div class="screen" id="admin-biblioteca">
+      <div class="screen-title">
+        <h1>Biblioteca de <em>ejercicios</em></h1>
+        <span class="subtitle">42 ejercicios · 6 categorías</span>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap">
+        <button class="btn-sm btn-gold">+ Subir video</button>
+        <button class="btn-sm btn-outline">Filtrar por categoría</button>
+      </div>
+      <div class="exercise-grid">
+        <div class="exercise-card"><div class="thumb"><div class="play">▶</div></div><div class="info"><h4>Sentadilla profunda</h4><p class="meta">Tren inferior · 3 variantes</p></div></div>
+        <div class="exercise-card"><div class="thumb"><div class="play">▶</div></div><div class="info"><h4>Press de banca</h4><p class="meta">Tren superior · 2 variantes</p></div></div>
+        <div class="exercise-card"><div class="thumb"><div class="play">▶</div></div><div class="info"><h4>Peso muerto rumano</h4><p class="meta">Cadena posterior · 2 variantes</p></div></div>
+        <div class="exercise-card"><div class="thumb"><div class="play">▶</div></div><div class="info"><h4>Plancha frontal</h4><p class="meta">Core · 4 progresiones</p></div></div>
+        <div class="exercise-card"><div class="thumb"><div class="play">▶</div></div><div class="info"><h4>Remo con barra</h4><p class="meta">Espalda · 3 variantes</p></div></div>
+        <div class="exercise-card"><div class="thumb"><div class="play">▶</div></div><div class="info"><h4>Hip thrust</h4><p class="meta">Glúteos · 2 variantes</p></div></div>
+        <div class="exercise-card"><div class="thumb"><div class="play">▶</div></div><div class="info"><h4>Press militar</h4><p class="meta">Hombros · 3 variantes</p></div></div>
+        <div class="exercise-card"><div class="thumb"><div class="play">▶</div></div><div class="info"><h4>Movilidad de cadera</h4><p class="meta">Movilidad · 5 drills</p></div></div>
+      </div>
+    </div>
+
+    <!-- Admin Planificar -->
+    <div class="screen" id="admin-planificar">
+      <div class="screen-title">
+        <h1>Planificar <em>rutina</em></h1>
+        <span class="subtitle">Arrastrá ejercicios de la biblioteca al plan del alumno</span>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+        <button class="btn-sm btn-outline">Alumno: Martín Rojas ▾</button>
+        <button class="btn-sm btn-outline">Semana: 14–20 Abril ▾</button>
+        <button class="btn-sm btn-gold">Guardar planificación</button>
+      </div>
+      <div class="builder">
+        <div class="builder-col">
+          <h3>Biblioteca disponible</h3>
+          <div class="builder-item"><span class="grip">⠿</span> Sentadilla profunda<span class="sets">Tren inferior</span></div>
+          <div class="builder-item"><span class="grip">⠿</span> Press de banca<span class="sets">Tren superior</span></div>
+          <div class="builder-item"><span class="grip">⠿</span> Peso muerto rumano<span class="sets">Cadena posterior</span></div>
+          <div class="builder-item"><span class="grip">⠿</span> Plancha frontal<span class="sets">Core</span></div>
+          <div class="builder-item"><span class="grip">⠿</span> Remo con barra<span class="sets">Espalda</span></div>
+          <div class="builder-item"><span class="grip">⠿</span> Hip thrust<span class="sets">Glúteos</span></div>
+          <div class="builder-item"><span class="grip">⠿</span> Movilidad de cadera<span class="sets">Movilidad</span></div>
+        </div>
+        <div class="builder-col">
+          <h3>Lunes — Tren inferior + core</h3>
+          <div class="builder-item" style="border-color:var(--gold)"><span class="grip">⠿</span> Sentadilla profunda<span class="sets">4×8 · RPE 7</span></div>
+          <div class="builder-item" style="border-color:var(--gold)"><span class="grip">⠿</span> Hip thrust<span class="sets">3×12 · RPE 8</span></div>
+          <div class="builder-item" style="border-color:var(--gold)"><span class="grip">⠿</span> Peso muerto rumano<span class="sets">3×10 · RPE 7</span></div>
+          <div class="builder-item" style="border-color:var(--gold)"><span class="grip">⠿</span> Plancha frontal<span class="sets">3×45s</span></div>
+          <div style="border:1px dashed var(--line2);border-radius:6px;padding:14px;text-align:center;color:var(--text3);font-size:12px;cursor:pointer">+ Arrastrá un ejercicio acá</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin Alumnos -->
+    <div class="screen" id="admin-alumnos">
+      <div class="screen-title">
+        <h1>Mis <em>alumnos</em></h1>
+        <span class="subtitle">12 activos · 3 pendientes de anamnesis</span>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Alumno</th><th>Plan</th><th>Inicio</th><th>Último feedback</th><th>Estado</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Martín Rojas</strong></td><td>Plan 02 · Mensual</td><td>01/03/2026</td><td>Hoy</td><td><span class="status status-active">Activo</span></td></tr>
+          <tr><td><strong>Lucía Fernández</strong></td><td>Plan 03 · Integral</td><td>15/02/2026</td><td>Hoy</td><td><span class="status status-active">Activo</span></td></tr>
+          <tr><td><strong>Carlos Méndez</strong></td><td>Plan 02 · Mensual</td><td>20/03/2026</td><td>Ayer</td><td><span class="status status-active">Activo</span></td></tr>
+          <tr><td><strong>Ana Torres</strong></td><td>Plan 01 · Rutina</td><td>10/04/2026</td><td>—</td><td><span class="status status-pending">Anamnesis</span></td></tr>
+          <tr><td><strong>Diego Peralta</strong></td><td>Plan 02 · Mensual</td><td>09/04/2026</td><td>—</td><td><span class="status status-pending">Anamnesis</span></td></tr>
+          <tr><td><strong>James Wilson</strong> 🇬🇧</td><td>Plan 02 · Monthly</td><td>05/04/2026</td><td>08/04</td><td><span class="status status-active">Active</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Admin Pagos -->
+    <div class="screen" id="admin-pagos">
+      <div class="screen-title">
+        <h1>Pagos y <em>suscripciones</em></h1>
+        <span class="subtitle">Mercado Pago + wallet USD</span>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="label">MRR (Ingreso mensual recurrente)</div><div class="value green">$186.000</div></div>
+        <div class="stat-card"><div class="label">Suscripciones activas</div><div class="value gold">9</div></div>
+        <div class="stat-card"><div class="label">Pagos USD recibidos</div><div class="value" style="color:var(--blue)">USD 195</div></div>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Alumno</th><th>Plan</th><th>Monto</th><th>Método</th><th>Fecha</th><th>Estado</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Martín Rojas</strong></td><td>Plan 02</td><td>$18.500</td><td>Mercado Pago</td><td>01/04</td><td><span class="status status-active">Cobrado</span></td></tr>
+          <tr><td><strong>Lucía Fernández</strong></td><td>Plan 03</td><td>$28.000</td><td>Mercado Pago</td><td>01/04</td><td><span class="status status-active">Cobrado</span></td></tr>
+          <tr><td><strong>James Wilson</strong></td><td>Plan 02</td><td>USD 65</td><td>USDT (wallet)</td><td>05/04</td><td><span class="status status-active">Recibido</span></td></tr>
+          <tr><td><strong>Diego Peralta</strong></td><td>Plan 02</td><td>$18.500</td><td>Mercado Pago</td><td>09/04</td><td><span class="status status-pending">Pendiente</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ==================== ALUMNO SCREENS ==================== -->
+
+    <!-- Alumno Rutina -->
+    <div class="screen" id="alumno-rutina">
+      <div class="screen-title">
+        <h1>Mi <em>rutina</em></h1>
+        <span class="subtitle">Semana 14–20 Abril · Plan 02 Mensual</span>
+      </div>
+      <div class="routine-day">
+        <div class="day-header">
+          <div class="day-name">Lunes · <em>Tren inferior + core</em></div>
+          <button class="btn-sm btn-outline">Dejar feedback →</button>
+        </div>
+        <div class="exercise-row"><div class="ex-thumb">🦵</div><div class="ex-info"><h4>Sentadilla profunda</h4><p>4 series × 8 reps · RPE 7 · Video de Enzo incluido</p></div><div class="ex-check done">✓</div></div>
+        <div class="exercise-row"><div class="ex-thumb">🍑</div><div class="ex-info"><h4>Hip thrust</h4><p>3 series × 12 reps · RPE 8</p></div><div class="ex-check done">✓</div></div>
+        <div class="exercise-row"><div class="ex-thumb">💪</div><div class="ex-info"><h4>Peso muerto rumano</h4><p>3 series × 10 reps · RPE 7</p></div><div class="ex-check"></div></div>
+        <div class="exercise-row"><div class="ex-thumb">🧘</div><div class="ex-info"><h4>Plancha frontal</h4><p>3 series × 45 seg</p></div><div class="ex-check"></div></div>
+      </div>
+      <div class="routine-day">
+        <div class="day-header">
+          <div class="day-name">Miércoles · <em>Tren superior</em></div>
+        </div>
+        <div class="exercise-row"><div class="ex-thumb">🏋️</div><div class="ex-info"><h4>Press de banca</h4><p>4 series × 8 reps · RPE 7</p></div><div class="ex-check"></div></div>
+        <div class="exercise-row"><div class="ex-thumb">🚣</div><div class="ex-info"><h4>Remo con barra</h4><p>4 series × 10 reps · RPE 7</p></div><div class="ex-check"></div></div>
+        <div class="exercise-row"><div class="ex-thumb">🤸</div><div class="ex-info"><h4>Press militar</h4><p>3 series × 10 reps · RPE 7</p></div><div class="ex-check"></div></div>
+      </div>
+    </div>
+
+    <!-- Alumno Feedback -->
+    <div class="screen" id="alumno-feedback">
+      <div class="screen-title">
+        <h1>Mi <em>feedback</em></h1>
+        <span class="subtitle">Comentarios diarios + videos de ejecución</span>
+      </div>
+      <div style="margin-bottom:20px">
+        <div class="form-group"><label>¿Cómo te sentiste hoy?</label><textarea placeholder="Contale a Enzo cómo fue la sesión de hoy..."></textarea></div>
+        <div style="display:flex;gap:8px"><button class="btn-sm btn-outline">Subir video de ejecución</button><button class="btn-sm btn-gold">Enviar feedback</button></div>
+      </div>
+      <h3 style="font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin:20px 0 12px">Historial</h3>
+      <div class="feedback-entry">
+        <div class="fb-header"><span class="date">11/04/2026 · Lunes</span> — Tren inferior + core</div>
+        <p>Me sentí bien con las sentadillas, llegué a RPE 7 sin problema. En el hip thrust me costó la última serie, creo que estoy progresando. El peso muerto lo bajé un poco porque me tiraba la espalda baja.</p>
+        <div class="fb-video">▶ Video: Sentadilla profunda · 0:42</div>
+      </div>
+      <div class="feedback-entry">
+        <div class="fb-header"><span class="date">09/04/2026 · Miércoles</span> — Tren superior</div>
+        <p>Buen día de press. El remo me sigue costando mantener la postura en la última serie. Subí video para que lo revises.</p>
+        <div class="fb-video">▶ Video: Remo con barra · 0:38</div>
+      </div>
+    </div>
+
+    <!-- Alumno Videos -->
+    <div class="screen" id="alumno-videos">
+      <div class="screen-title">
+        <h1>Mis <em>videos</em></h1>
+        <span class="subtitle">Videos de ejecución subidos para corrección</span>
+      </div>
+      <div style="margin-bottom:16px"><button class="btn-sm btn-gold">+ Subir video</button></div>
+      <div class="exercise-grid">
+        <div class="exercise-card"><div class="thumb"><div class="play">▶</div></div><div class="info"><h4>Sentadilla · 11/04</h4><p class="meta">0:42 · <span style="color:var(--green)">Revisado ✓</span></p></div></div>
+        <div class="exercise-card"><div class="thumb"><div class="play">▶</div></div><div class="info"><h4>Remo con barra · 09/04</h4><p class="meta">0:38 · <span style="color:var(--gold)">Pendiente</span></p></div></div>
+        <div class="exercise-card"><div class="thumb"><div class="play">▶</div></div><div class="info"><h4>Hip thrust · 07/04</h4><p class="meta">0:55 · <span style="color:var(--green)">Revisado ✓</span></p></div></div>
+        <div class="exercise-card"><div class="thumb"><div class="play">▶</div></div><div class="info"><h4>Press banca · 04/04</h4><p class="meta">0:48 · <span style="color:var(--green)">Revisado ✓</span></p></div></div>
+      </div>
+    </div>
+
+    <!-- Alumno Balance -->
+    <div class="screen" id="alumno-balance">
+      <div class="screen-title">
+        <h1>Balance <em>mensual</em></h1>
+        <span class="subtitle">Fotos de progreso + mediciones</span>
+      </div>
+      <div style="margin-bottom:16px"><button class="btn-sm btn-gold">+ Subir fotos de este mes</button></div>
+      <div class="balance-grid">
+        <div class="balance-month"><div class="photo">Foto frente · Abril 2026</div><div class="binfo"><h4>Abril 2026</h4><p>Peso: 78.2 kg · Cintura: 82 cm</p></div></div>
+        <div class="balance-month"><div class="photo">Foto frente · Marzo 2026</div><div class="binfo"><h4>Marzo 2026</h4><p>Peso: 79.5 kg · Cintura: 84 cm</p></div></div>
+        <div class="balance-month"><div class="photo">Foto frente · Febrero 2026</div><div class="binfo"><h4>Febrero 2026</h4><p>Peso: 81.0 kg · Cintura: 86 cm</p></div></div>
+        <div class="balance-month"><div class="photo">Foto frente · Enero 2026</div><div class="binfo"><h4>Enero 2026 (inicio)</h4><p>Peso: 82.3 kg · Cintura: 88 cm</p></div></div>
+      </div>
+    </div>
+
+    <!-- Alumno Anamnesis -->
+    <div class="screen" id="alumno-anamnesis">
+      <div class="screen-title">
+        <h1>Mi <em>perfil</em></h1>
+        <span class="subtitle">Anamnesis y datos de salud</span>
+      </div>
+      <div class="form-section">
+        <h3>Datos personales</h3>
+        <div class="form-row">
+          <div class="form-group"><label>Nombre completo</label><input value="Martín Rojas" readonly></div>
+          <div class="form-group"><label>Edad</label><input value="32 años" readonly></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Altura</label><input value="178 cm" readonly></div>
+          <div class="form-group"><label>Peso actual</label><input value="78.2 kg" readonly></div>
+        </div>
+      </div>
+      <div class="form-section">
+        <h3>Historia clínica</h3>
+        <div class="form-group"><label>¿Tenés alguna patología diagnosticada?</label><input value="No" readonly></div>
+        <div class="form-group"><label>¿Tuviste lesiones previas?</label><input value="Esguince tobillo derecho (2024), recuperado" readonly></div>
+        <div class="form-group"><label>¿Tomás alguna medicación?</label><input value="No" readonly></div>
+      </div>
+      <div class="form-section">
+        <h3>Objetivos</h3>
+        <div class="form-group"><label>¿Cuál es tu objetivo principal?</label><textarea readonly>Ganar fuerza funcional, mejorar postura (trabajo de escritorio), bajar % graso. No busco ser grande, busco sentirme fuerte y sin dolores.</textarea></div>
+        <div class="form-group"><label>¿Cuántos días por semana podés entrenar?</label><input value="3–4 días" readonly></div>
+        <div class="form-group"><label>¿Tenés experiencia previa?</label><input value="Sí, 2 años en gym sin seguimiento profesional" readonly></div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// View switch (admin / alumno)
+const viewBtns = document.querySelectorAll('#viewSwitch button');
+const navAdmin = document.getElementById('navAdmin');
+const navAlumno = document.getElementById('navAlumno');
+const userInfo = document.getElementById('userInfo');
+const screens = document.querySelectorAll('.screen');
+const navItems = document.querySelectorAll('.nav-item');
+
+viewBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    viewBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const view = btn.dataset.view;
+    if (view === 'admin') {
+      navAdmin.style.display = '';
+      navAlumno.style.display = 'none';
+      userInfo.innerHTML = '<div class="avatar">EN</div><span>Enzo Nievas</span><span class="badge badge-admin">Admin</span>';
+      showScreen('admin-dashboard');
+    } else {
+      navAdmin.style.display = 'none';
+      navAlumno.style.display = '';
+      userInfo.innerHTML = '<div class="avatar">MR</div><span>Martín Rojas</span><span class="badge badge-alumno">Alumno</span>';
+      showScreen('alumno-rutina');
+    }
+  });
+});
+
+function showScreen(id) {
+  screens.forEach(s => s.classList.remove('active'));
+  const target = document.getElementById(id);
+  if (target) target.classList.add('active');
+  navItems.forEach(n => n.classList.toggle('active', n.dataset.screen === id));
+}
+
+navItems.forEach(item => {
+  item.addEventListener('click', () => showScreen(item.dataset.screen));
+});
+</script>
+</body>
+</html>
