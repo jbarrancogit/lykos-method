@@ -533,10 +533,12 @@ section + section { border-top: 1px solid var(--line); }
 /* ---------- Method ---------- */
 .method-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.1rem;
 }
-@media (max-width: 960px) { .method-grid { grid-template-columns: 1fr; } }
+@media (max-width: 1100px) { .method-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 720px) { .method-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .method-grid { grid-template-columns: 1fr; } }
 
 .mcard {
   position: relative;
@@ -1352,7 +1354,7 @@ footer ul a:hover { color: var(--gold); }
         <span class="word" style="animation-delay:1.25s"><em>cuerpo.</em></span>
       </h1>
       <p class="hero-sub" data-i18n="hero.sub">
-        Diagnóstico, planificación y seguimiento a medida. Alta, media o baja intensidad según tu objetivo — siempre cuidando tu cuerpo, sin empeorar nada en el camino.
+        Un sistema de entrenamiento basado en la biomecánica, la fuerza inteligente y el movimiento eficiente. Planificación y seguimiento personalizados, desde Mendoza al mundo.
       </p>
       <div class="hero-ctas">
         <a href="#plans" class="btn btn-primary">
@@ -1399,107 +1401,42 @@ footer ul a:hover { color: var(--gold); }
       <span class="eyebrow" data-i18n="method.eyebrow">El método</span>
     </div>
     <div class="section-title reveal">
-      <h2 data-i18n-html="method.title">Tres intensidades, <em>una filosofía.</em></h2>
-      <p data-i18n="method.intro">Lykos no es un método de "más es mejor". Es un método de "mejor es más". Alta, media o baja: la intensidad la dicta el alumno, no el ego del profesor. Siempre con la salud como eje, sin empeorar nada en el camino.</p>
+      <h2 data-i18n-html="method.title">Cinco pilares, <em>un método.</em></h2>
+      <p data-i18n="method.intro">Un sistema de entrenamiento basado en la biomecánica, la fuerza inteligente y el movimiento eficiente. Cada pilar es una decisión de diseño que atraviesa todas las planificaciones.</p>
     </div>
-    <div class="method-grid">
+    <div class="method-grid" style="grid-template-columns:repeat(5,1fr)">
       <article class="mcard reveal d1">
-        <div class="mcard-photo">
-          <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-label="Alta intensidad — ilustración de barra olímpica">
-            <defs>
-              <linearGradient id="altaBg" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#080808"/>
-                <stop offset="0.6" stop-color="#1a1208"/>
-                <stop offset="1" stop-color="#0a0a0a"/>
-              </linearGradient>
-              <radialGradient id="altaGlow" cx="0.5" cy="0.5" r="0.5">
-                <stop offset="0" stop-color="#f2c15e" stop-opacity="0.3"/>
-                <stop offset="1" stop-color="#d4a94a" stop-opacity="0"/>
-              </radialGradient>
-            </defs>
-            <rect width="800" height="450" fill="url(#altaBg)"/>
-            <rect width="800" height="450" fill="url(#altaGlow)"/>
-            <g transform="translate(400,225)" stroke-linecap="round">
-              <line x1="-330" y1="0" x2="330" y2="0" stroke="#d4a94a" stroke-width="7"/>
-              <g fill="#d4a94a">
-                <rect x="-295" y="-70" width="14" height="140"/>
-                <rect x="-273" y="-92" width="18" height="184"/>
-                <rect x="-247" y="-60" width="12" height="120" opacity="0.65"/>
-                <rect x="-228" y="-45" width="10" height="90" opacity="0.45"/>
-                <rect x="281" y="-70" width="14" height="140"/>
-                <rect x="255" y="-92" width="18" height="184"/>
-                <rect x="235" y="-60" width="12" height="120" opacity="0.65"/>
-                <rect x="218" y="-45" width="10" height="90" opacity="0.45"/>
-              </g>
-            </g>
-          </svg>
-        </div>
-        <span class="tag" data-i18n="method.c1.tag">01 · Alta</span>
-        <h3 data-i18n-html="method.c1.title">Alta <em>intensidad</em></h3>
-        <p data-i18n="method.c1.desc">Para objetivos de rendimiento. Carga progresiva, medición semanal y prevención de lesiones como línea base.</p>
+        <span class="tag" data-i18n="method.c1.tag">01</span>
+        <h3 data-i18n-html="method.c1.title">Movimiento <em>eficiente</em></h3>
+        <p data-i18n="method.c1.desc">Cada ejercicio tiene un patrón correcto. Lo encontramos, lo practicamos, lo integramos a tu cuerpo.</p>
       </article>
       <article class="mcard reveal d2">
-        <div class="mcard-photo">
-          <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-label="Media intensidad — ilustración de kettlebell">
-            <defs>
-              <linearGradient id="mediaBg" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#080808"/>
-                <stop offset="0.6" stop-color="#1a1208"/>
-                <stop offset="1" stop-color="#0a0a0a"/>
-              </linearGradient>
-              <radialGradient id="mediaGlow" cx="0.5" cy="0.55" r="0.5">
-                <stop offset="0" stop-color="#f2c15e" stop-opacity="0.28"/>
-                <stop offset="1" stop-color="#d4a94a" stop-opacity="0"/>
-              </radialGradient>
-            </defs>
-            <rect width="800" height="450" fill="url(#mediaBg)"/>
-            <rect width="800" height="450" fill="url(#mediaGlow)"/>
-            <g transform="translate(400,235)">
-              <path d="M -55 -55 Q -65 -140, 0 -145 Q 65 -140, 55 -55"
-                    stroke="#d4a94a" stroke-width="12" fill="none" stroke-linecap="round"/>
-              <rect x="-72" y="-60" width="144" height="14" fill="#d4a94a" rx="2"/>
-              <circle cx="0" cy="50" r="100" stroke="#d4a94a" stroke-width="5" fill="#d4a94a" fill-opacity="0.08"/>
-              <circle cx="0" cy="50" r="82" stroke="#d4a94a" stroke-width="1" fill="none" stroke-opacity="0.35"/>
-            </g>
-          </svg>
-        </div>
-        <span class="tag" data-i18n="method.c2.tag">02 · Media</span>
-        <h3 data-i18n-html="method.c2.title">Media <em>intensidad</em></h3>
-        <p data-i18n="method.c2.desc">El equilibrio. Construir fuerza sostenible sin desgastar el cuerpo en el intento. Para quien entrena para toda la vida.</p>
+        <span class="tag" data-i18n="method.c2.tag">02</span>
+        <h3 data-i18n-html="method.c2.title">Fuerza <em>inteligente</em></h3>
+        <p data-i18n="method.c2.desc">No se trata de levantar más, se trata de levantar mejor. Carga progresiva con propósito y control.</p>
       </article>
       <article class="mcard reveal d3">
-        <div class="mcard-photo">
-          <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-label="Baja intensidad — ilustración de figura meditando">
-            <defs>
-              <linearGradient id="bajaBg" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#080808"/>
-                <stop offset="0.5" stop-color="#1a1208"/>
-                <stop offset="1" stop-color="#0a0a0a"/>
-              </linearGradient>
-              <radialGradient id="bajaGlow" cx="0.5" cy="0.5" r="0.5">
-                <stop offset="0" stop-color="#f2c15e" stop-opacity="0.24"/>
-                <stop offset="1" stop-color="#d4a94a" stop-opacity="0"/>
-              </radialGradient>
-            </defs>
-            <rect width="800" height="450" fill="url(#bajaBg)"/>
-            <rect width="800" height="450" fill="url(#bajaGlow)"/>
-            <g transform="translate(400,225)" stroke="#d4a94a" fill="none" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="0" cy="-110" r="30" fill="#d4a94a" fill-opacity="0.12"/>
-              <path d="M 0 -80 L 0 30"/>
-              <path d="M 0 -50 Q -65 -25, -115 25"/>
-              <path d="M 0 -50 Q 65 -25, 115 25"/>
-              <path d="M -115 25 Q -55 55, 0 50 Q 55 55, 115 25"/>
-              <path d="M -65 50 Q 0 62, 65 50"/>
-            </g>
-          </svg>
-        </div>
-        <span class="tag" data-i18n="method.c3.tag">03 · Baja</span>
-        <h3 data-i18n-html="method.c3.title">Baja <em>intensidad</em></h3>
-        <p data-i18n="method.c3.desc">Rehabilitación, recomienzo, vuelta después de una lesión. Cuidar sin frenar. Volver sin romper.</p>
+        <span class="tag" data-i18n="method.c3.tag">03</span>
+        <h3 data-i18n-html="method.c3.title">Biomecánica <em>aplicada</em></h3>
+        <p data-i18n="method.c3.desc">Entender cómo se mueve tu cuerpo para entrenarlo como necesita, no como dice internet.</p>
+      </article>
+      <article class="mcard reveal d1">
+        <span class="tag" data-i18n="method.c4.tag">04</span>
+        <h3 data-i18n-html="method.c4.title">Adaptación <em>progresiva</em></h3>
+        <p data-i18n="method.c4.desc">El plan se ajusta a tu evolución. Lo que funciona hoy se recalibra mañana según lo que el cuerpo devuelve.</p>
+      </article>
+      <article class="mcard reveal d2">
+        <span class="tag" data-i18n="method.c5.tag">05</span>
+        <h3 data-i18n-html="method.c5.title">Conexión <em>cuerpo-mente</em></h3>
+        <p data-i18n="method.c5.desc">Entrenar con conciencia. Sentir el músculo, controlar el movimiento, construir desde adentro.</p>
       </article>
     </div>
   </div>
 </section>
+
+<div class="interstitial reveal" style="padding:clamp(3rem,6vw,5rem) 0;text-align:center;font-family:var(--display);font-style:italic;font-weight:300;font-size:clamp(1.4rem,2.5vw,2.2rem);color:var(--text);letter-spacing:-.02em;line-height:1.3;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="container"><em style="color:var(--gold-b)">Fuerza con inteligencia,</em> movimiento con propósito.</div>
+</div>
 
 <section id="flow">
   <div class="container">
@@ -1658,8 +1595,8 @@ footer ul a:hover { color: var(--gold); }
         <span class="plabel" data-i18n="coach.plabel">placeholder · retrato real pendiente</span>
       </div>
       <div class="coach-bio reveal d1">
-        <p data-i18n="coach.bio1">Profesor de Educación Física con especializaciones en salud cursadas durante la carrera universitaria. Desde Mendoza, Enzo acompaña alumnos en Argentina y en el exterior con un enfoque que nace de un vacío que vio dentro de la propia industria del fitness.</p>
-        <p data-i18n="coach.bio2">Lo que quiere hacer con Lykos es exactamente lo que le faltó ver: cuidar el cuerpo de las personas más allá de fortalecer los músculos. El tipo de profesor que acompaña al objetivo sin romper nada en el camino, donde el alumno se siente cuidado mientras entrena.</p>
+        <p data-i18n="coach.bio1">Profesor de Educación Física especializado en entrenamiento de fuerza y biomecánica aplicada, con experiencia en el trabajo personalizado en gimnasio y en la readaptación de personas con molestias o lesiones.</p>
+        <p data-i18n="coach.bio2">A lo largo de su formación, ha desarrollado un enfoque basado en el movimiento eficiente, la técnica correcta y la progresión inteligente, integrando herramientas de entrenamiento, prevención y control corporal. Actualmente acompaña a personas de distintos niveles a mejorar su rendimiento, su físico y su calidad de movimiento, tanto de forma presencial como online, a través del Método Lykos.</p>
         <blockquote class="coach-quote" data-i18n="coach.quote">"Mi trabajo no es llevarte al límite. Es llevarte a tu potencial, sin romperte en el camino."</blockquote>
         <div class="coach-creds">
           <span data-i18n="coach.cred1">Profesor de EF</span>
@@ -1739,8 +1676,8 @@ footer ul a:hover { color: var(--gold); }
           <li data-i18n="plans.p1.f6">Sin seguimiento posterior</li>
         </ul>
         <div class="price">
-          <span class="amount" data-i18n="plans.price">A consultar</span>
-          <span class="per" data-i18n="plans.p1.per">Pago único</span>
+          <span class="amount" data-i18n="plans.p1.price">$55.000</span>
+          <span class="per" data-i18n="plans.p1.per">Pago único · USD 50 internacional</span>
         </div>
         <a href="#contact" class="btn" data-i18n="plans.cta">Empezar</a>
       </article>
@@ -1760,8 +1697,8 @@ footer ul a:hover { color: var(--gold); }
           <li data-i18n="plans.p2.f7">Ajuste dinámico de carga</li>
         </ul>
         <div class="price">
-          <span class="amount" data-i18n="plans.price">A consultar</span>
-          <span class="per" data-i18n="plans.p2.per">Por mes</span>
+          <span class="amount" data-i18n="plans.p2.price">$120.000</span>
+          <span class="per" data-i18n="plans.p2.per">Por mes · USD 110 internacional</span>
         </div>
         <a href="#contact" class="btn btn-primary" data-i18n="plans.cta">Empezar</a>
       </article>
@@ -1779,8 +1716,8 @@ footer ul a:hover { color: var(--gold); }
           <li data-i18n="plans.p3.f6">Revisiones extra cuando haga falta</li>
         </ul>
         <div class="price">
-          <span class="amount" data-i18n="plans.price">A consultar</span>
-          <span class="per" data-i18n="plans.p3.per">Por mes</span>
+          <span class="amount" data-i18n="plans.p3.price">$200.000</span>
+          <span class="per" data-i18n="plans.p3.per">Por mes · USD 190 internacional</span>
         </div>
         <a href="#contact" class="btn" data-i18n="plans.cta">Empezar</a>
       </article>
@@ -1802,11 +1739,11 @@ footer ul a:hover { color: var(--gold); }
       <div class="contact-left reveal d1">
         <p data-i18n="contact.intro">Respondo personalmente desde Mendoza. Atiendo alumnos locales y del exterior. Contame sobre tu objetivo, qué estás entrenando hoy y qué te gustaría cambiar.</p>
         <div class="channels">
-          <a href="https://wa.me/5492610000000" target="_blank" rel="noopener" class="channel">
+          <a href="https://wa.me/5492616257645" target="_blank" rel="noopener" class="channel">
             <span class="icon">W</span>
             <div>
               <span class="label" data-i18n="contact.wa">WhatsApp directo</span>
-              <div class="value">+54 9 261 000 0000</div>
+              <div class="value">+54 9 261 625 7645</div>
             </div>
           </a>
           <a href="mailto:hola@lykosmethod.com" class="channel">
@@ -1869,7 +1806,7 @@ footer ul a:hover { color: var(--gold); }
     <div>
       <h4 data-i18n="footer.contact">Contacto</h4>
       <ul>
-        <li><a href="https://wa.me/5492610000000">WhatsApp</a></li>
+        <li><a href="https://wa.me/5492616257645">WhatsApp</a></li>
         <li><a href="mailto:hola@lykosmethod.com">hola@lykosmethod.com</a></li>
         <li><a href="https://instagram.com/lykosmethod" target="_blank" rel="noopener">Instagram</a></li>
       </ul>
@@ -2142,7 +2079,7 @@ const I18N = {
 
     "hero.eyebrow": "Lykos Method / Mendoza, Argentina",
     "hero.title.words": ["Entrená","con","un","método","que","respeta","tu","cuerpo."],
-    "hero.sub": "Diagnóstico, planificación y seguimiento a medida. Alta, media o baja intensidad según tu objetivo — siempre cuidando tu cuerpo, sin empeorar nada en el camino.",
+    "hero.sub": "Un sistema de entrenamiento basado en la biomecánica, la fuerza inteligente y el movimiento eficiente. Planificación y seguimiento personalizados, desde Mendoza al mundo.",
     "hero.cta1": "Ver planes",
     "hero.cta2": "Escribir por WhatsApp",
     "hero.meta1": "Intensidades",
@@ -2152,17 +2089,23 @@ const I18N = {
     "hero.canvasLabel2": "marca viva",
 
     "method.eyebrow": "El método",
-    "method.title": 'Tres intensidades, <em>una filosofía.</em>',
-    "method.intro": 'Lykos no es un método de "más es mejor". Es un método de "mejor es más". Alta, media o baja: la intensidad la dicta el alumno, no el ego del profesor. Siempre con la salud como eje, sin empeorar nada en el camino.',
-    "method.c1.tag": "01 · Alta",
-    "method.c1.title": 'Alta <em>intensidad</em>',
-    "method.c1.desc": "Para objetivos de rendimiento. Carga progresiva, medición semanal y prevención de lesiones como línea base.",
-    "method.c2.tag": "02 · Media",
-    "method.c2.title": 'Media <em>intensidad</em>',
-    "method.c2.desc": "El equilibrio. Construir fuerza sostenible sin desgastar el cuerpo en el intento. Para quien entrena para toda la vida.",
-    "method.c3.tag": "03 · Baja",
-    "method.c3.title": 'Baja <em>intensidad</em>',
-    "method.c3.desc": "Rehabilitación, recomienzo, vuelta después de una lesión. Cuidar sin frenar. Volver sin romper.",
+    "method.title": 'Cinco pilares, <em>un método.</em>',
+    "method.intro": "Un sistema de entrenamiento basado en la biomecánica, la fuerza inteligente y el movimiento eficiente. Cada pilar es una decisión de diseño que atraviesa todas las planificaciones.",
+    "method.c1.tag": "01",
+    "method.c1.title": 'Movimiento <em>eficiente</em>',
+    "method.c1.desc": "Cada ejercicio tiene un patrón correcto. Lo encontramos, lo practicamos, lo integramos a tu cuerpo.",
+    "method.c2.tag": "02",
+    "method.c2.title": 'Fuerza <em>inteligente</em>',
+    "method.c2.desc": "No se trata de levantar más, se trata de levantar mejor. Carga progresiva con propósito y control.",
+    "method.c3.tag": "03",
+    "method.c3.title": 'Biomecánica <em>aplicada</em>',
+    "method.c3.desc": "Entender cómo se mueve tu cuerpo para entrenarlo como necesita, no como dice internet.",
+    "method.c4.tag": "04",
+    "method.c4.title": 'Adaptación <em>progresiva</em>',
+    "method.c4.desc": "El plan se ajusta a tu evolución. Lo que funciona hoy se recalibra mañana según lo que el cuerpo devuelve.",
+    "method.c5.tag": "05",
+    "method.c5.title": 'Conexión <em>cuerpo-mente</em>',
+    "method.c5.desc": "Entrenar con conciencia. Sentir el músculo, controlar el movimiento, construir desde adentro.",
 
     "flow.eyebrow": "Cómo trabajamos",
     "flow.title": 'Del diagnóstico al balance, <em>en cinco pasos.</em>',
@@ -2186,8 +2129,8 @@ const I18N = {
 
     "coach.eyebrow": "El entrenador",
     "coach.title": 'Enzo <em>Nievas.</em>',
-    "coach.bio1": "Profesor de Educación Física con especializaciones en salud cursadas durante la carrera universitaria. Desde Mendoza, Enzo acompaña alumnos en Argentina y en el exterior con un enfoque que nace de un vacío que vio dentro de la propia industria del fitness.",
-    "coach.bio2": "Lo que quiere hacer con Lykos es exactamente lo que le faltó ver: cuidar el cuerpo de las personas más allá de fortalecer los músculos. El tipo de profesor que acompaña al objetivo sin romper nada en el camino, donde el alumno se siente cuidado mientras entrena.",
+    "coach.bio1": "Profesor de Educación Física especializado en entrenamiento de fuerza y biomecánica aplicada, con experiencia en el trabajo personalizado en gimnasio y en la readaptación de personas con molestias o lesiones.",
+    "coach.bio2": "A lo largo de su formación, ha desarrollado un enfoque basado en el movimiento eficiente, la técnica correcta y la progresión inteligente, integrando herramientas de entrenamiento, prevención y control corporal. Actualmente acompaña a personas de distintos niveles a mejorar su rendimiento, su físico y su calidad de movimiento, tanto de forma presencial como online, a través del Método Lykos.",
     "coach.quote": '"Mi trabajo no es llevarte al límite. Es llevarte a tu potencial, sin romperte en el camino."',
     "coach.cred1": "Profesor de EF",
     "coach.cred2": "Especialización en salud",
@@ -2198,7 +2141,9 @@ const I18N = {
     "plans.eyebrow": "Planes",
     "plans.title": 'Elegí el nivel de <em>acompañamiento.</em>',
     "plans.divider": "Tres <strong>modalidades</strong> de trabajo",
-    "plans.price": "A consultar",
+    "plans.p1.price": "$55.000",
+    "plans.p2.price": "$120.000",
+    "plans.p3.price": "$200.000",
     "plans.cta": "Empezar",
     "plans.note": "Pagos en ARS vía <strong>Mercado Pago</strong> · Internacionales en <strong>USD</strong>",
 
@@ -2224,7 +2169,7 @@ const I18N = {
     "plans.p1.f4": "Indicaciones técnicas escritas",
     "plans.p1.f5": "Acceso a biblioteca de ejercicios",
     "plans.p1.f6": "Sin seguimiento posterior",
-    "plans.p1.per": "Pago único",
+    "plans.p1.per": "Pago único · USD 50 internacional",
     "plans.p2.title": 'Planificación <em>mensual</em>',
     "plans.p2.badge": "Más elegido",
     "plans.p2.desc": "La rutina personalizada más el seguimiento que la mantiene viva. Medición de progreso cada dos semanas, con videollamada si hace falta.",
@@ -2235,7 +2180,7 @@ const I18N = {
     "plans.p2.f5": "Videollamada o reunión de ajuste",
     "plans.p2.f6": "Balance mensual con fotos",
     "plans.p2.f7": "Ajuste dinámico de carga",
-    "plans.p2.per": "Por mes",
+    "plans.p2.per": "Por mes · USD 110 internacional",
     "plans.p3.title": 'Plan <em>integral</em>',
     "plans.p3.desc": "Todo lo del Plan 02 más la participación activa de otros profesionales de la salud — nutricionista, kinesiólogo y más.",
     "plans.p3.f1": "Todo lo del Plan 02",
@@ -2244,7 +2189,7 @@ const I18N = {
     "plans.p3.f4": "Coordinación interdisciplinaria",
     "plans.p3.f5": "Prioridad de agenda",
     "plans.p3.f6": "Revisiones extra cuando haga falta",
-    "plans.p3.per": "Por mes",
+    "plans.p3.per": "Por mes · USD 190 internacional",
 
     "contact.eyebrow": "Empezar",
     "contact.title": 'Escribime y armemos <em>tu plan.</em>',
@@ -2278,7 +2223,7 @@ const I18N = {
 
     "hero.eyebrow": "Lykos Method / Mendoza, Argentina",
     "hero.title.words": ["Train","with","a","method","that","respects","your","body."],
-    "hero.sub": "Diagnosis, programming and follow-up, all tailored to you. High, medium or low intensity depending on your goal — always taking care of your body, without making anything worse along the way.",
+    "hero.sub": "A training system built on biomechanics, smart strength and efficient movement. Personalized programming and follow-up, from Mendoza to the world.",
     "hero.cta1": "See plans",
     "hero.cta2": "Message on WhatsApp",
     "hero.meta1": "Intensities",
@@ -2288,17 +2233,23 @@ const I18N = {
     "hero.canvasLabel2": "living mark",
 
     "method.eyebrow": "The method",
-    "method.title": 'Three intensities, <em>one philosophy.</em>',
-    "method.intro": 'Lykos is not a "more is better" method. It is a "better is more" method. High, medium or low: intensity is dictated by the student, not the coach\'s ego. Always with health at the core, without making anything worse along the way.',
-    "method.c1.tag": "01 · High",
-    "method.c1.title": 'High <em>intensity</em>',
-    "method.c1.desc": "For performance goals. Progressive loading, weekly measurement and injury prevention as a baseline.",
-    "method.c2.tag": "02 · Medium",
-    "method.c2.title": 'Medium <em>intensity</em>',
-    "method.c2.desc": "The balance. Building sustainable strength without wearing the body out in the process. For people who train for life.",
-    "method.c3.tag": "03 · Low",
-    "method.c3.title": 'Low <em>intensity</em>',
-    "method.c3.desc": "Rehab, restart, coming back from an injury. Care without holding back. Return without breaking.",
+    "method.title": 'Five pillars, <em>one method.</em>',
+    "method.intro": "A training system built on biomechanics, smart strength and efficient movement. Each pillar is a design decision that runs through every program.",
+    "method.c1.tag": "01",
+    "method.c1.title": 'Efficient <em>movement</em>',
+    "method.c1.desc": "Every exercise has a correct pattern. We find it, we practice it, we integrate it into your body.",
+    "method.c2.tag": "02",
+    "method.c2.title": 'Smart <em>strength</em>',
+    "method.c2.desc": "It is not about lifting more, it is about lifting better. Progressive loading with purpose and control.",
+    "method.c3.tag": "03",
+    "method.c3.title": 'Applied <em>biomechanics</em>',
+    "method.c3.desc": "Understanding how your body moves to train it the way it needs, not the way the internet says.",
+    "method.c4.tag": "04",
+    "method.c4.title": 'Progressive <em>adaptation</em>',
+    "method.c4.desc": "The plan adjusts to your evolution. What works today is recalibrated tomorrow based on what your body gives back.",
+    "method.c5.tag": "05",
+    "method.c5.title": 'Body-mind <em>connection</em>',
+    "method.c5.desc": "Training with awareness. Feeling the muscle, controlling the movement, building from within.",
 
     "flow.eyebrow": "How we work",
     "flow.title": 'From diagnosis to balance, <em>in five steps.</em>',
@@ -2322,8 +2273,8 @@ const I18N = {
 
     "coach.eyebrow": "The coach",
     "coach.title": 'Enzo <em>Nievas.</em>',
-    "coach.bio1": "PE teacher with health specializations studied during his university degree. From Mendoza, Enzo coaches clients in Argentina and abroad with an approach that was born out of a gap he saw inside the fitness industry itself.",
-    "coach.bio2": "What he wants to build with Lykos is exactly what he felt was missing: caring for people's bodies beyond just strengthening their muscles. The kind of coach who takes you to your goal without breaking anything along the way — where the student feels cared for while training.",
+    "coach.bio1": "PE teacher specialized in strength training and applied biomechanics, with experience in personalized gym work and readaptation of people with discomfort or injuries.",
+    "coach.bio2": "Throughout his training, he has developed an approach based on efficient movement, correct technique and smart progression, integrating tools for training, prevention and body control. He currently coaches people of all levels to improve their performance, physique and movement quality, both in person and online, through the Lykos Method.",
     "coach.quote": '"My job is not to take you to your limit. It is to take you to your potential, without breaking you along the way."',
     "coach.cred1": "PE Teacher",
     "coach.cred2": "Health specialization",
@@ -2334,7 +2285,9 @@ const I18N = {
     "plans.eyebrow": "Plans",
     "plans.title": 'Choose your level of <em>support.</em>',
     "plans.divider": "Three <strong>work formats</strong>",
-    "plans.price": "On request",
+    "plans.p1.price": "USD 50",
+    "plans.p2.price": "USD 110",
+    "plans.p3.price": "USD 190",
     "plans.cta": "Start",
     "plans.note": "ARS payments via <strong>Mercado Pago</strong> · International payments in <strong>USD</strong>",
 
@@ -2360,7 +2313,7 @@ const I18N = {
     "plans.p1.f4": "Written technical instructions",
     "plans.p1.f5": "Access to exercise library",
     "plans.p1.f6": "No follow-up",
-    "plans.p1.per": "One-time payment",
+    "plans.p1.per": "One-time · ARS $55.000 local",
     "plans.p2.title": 'Monthly <em>program</em>',
     "plans.p2.badge": "Most chosen",
     "plans.p2.desc": "The personalized routine plus the follow-up that keeps it alive. Progress measurement every two weeks, with a video call when needed.",
@@ -2371,7 +2324,7 @@ const I18N = {
     "plans.p2.f5": "Adjustment video call",
     "plans.p2.f6": "Monthly balance with photos",
     "plans.p2.f7": "Dynamic load adjustment",
-    "plans.p2.per": "Per month",
+    "plans.p2.per": "Per month · ARS $120.000 local",
     "plans.p3.title": 'Integral <em>plan</em>',
     "plans.p3.desc": "Everything in Plan 02 plus the active participation of other health professionals — nutritionist, physiotherapist and more.",
     "plans.p3.f1": "Everything in Plan 02",
@@ -2380,7 +2333,7 @@ const I18N = {
     "plans.p3.f4": "Interdisciplinary coordination",
     "plans.p3.f5": "Priority scheduling",
     "plans.p3.f6": "Extra reviews when needed",
-    "plans.p3.per": "Per month",
+    "plans.p3.per": "Per month · ARS $200.000 local",
 
     "contact.eyebrow": "Start",
     "contact.title": 'Reach out and let\'s build <em>your plan.</em>',
@@ -2499,7 +2452,7 @@ const io = new IntersectionObserver(
 document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
 // ---------- Contact form → WhatsApp ----------
-const WHATSAPP_NUMBER = "5492610000000"; // TODO: reemplazar por el número real de Enzo
+const WHATSAPP_NUMBER = "5492616257645"; // TODO: reemplazar por el número real de Enzo
 const form = document.getElementById("contactForm");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
