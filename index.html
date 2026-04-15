@@ -1273,8 +1273,7 @@ footer ul a:hover { color: var(--gold); }
   width: auto;
   height: auto;
 }
-.anatomy-stage.mobile #spineCanvas { display: none; }
-.anatomy-stage.mobile .anatomy-fallback { display: flex; }
+/* fallback removed — 3D spine renders on all devices */
 .anatomy-stage .stage-label {
   position: absolute;
   bottom: 1.25rem;
@@ -1875,15 +1874,6 @@ gsap.registerPlugin(ScrollTrigger);
   if (!canvas) return;
   const stage = canvas.parentElement;
 
-  const isMobile =
-    window.matchMedia('(max-width: 720px)').matches ||
-    (window.matchMedia('(pointer: coarse)').matches &&
-     window.matchMedia('(max-width: 960px)').matches);
-  if (isMobile) {
-    stage.classList.add('mobile');
-    return;
-  }
-
   let scene, camera, renderer, spine;
 
   try {
@@ -1898,7 +1888,8 @@ gsap.registerPlugin(ScrollTrigger);
       alpha: true,
       powerPreference: 'high-performance'
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const maxDpr = window.innerWidth < 720 ? 1.5 : 2;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxDpr));
 
     const mainMat = new THREE.MeshBasicMaterial({
       color: 0xd4a94a,
