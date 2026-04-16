@@ -538,7 +538,30 @@ section + section { border-top: 1px solid var(--line); }
 }
 @media (max-width: 1100px) { .method-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 720px) { .method-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 480px) { .method-grid { grid-template-columns: 1fr; } }
+@media (max-width: 480px) {
+  .method-grid { grid-template-columns: 1fr; }
+  .mcard {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 1.5rem 1.25rem;
+  }
+  .mcard .tag {
+    flex-shrink: 0;
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 0;
+    padding-top: 0.15rem;
+    min-width: 2rem;
+  }
+  .mcard-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .mcard h3 { margin-bottom: 0.5rem; }
+}
 
 .mcard {
   position: relative;
@@ -1289,6 +1312,46 @@ footer ul a:hover { color: var(--gold); }
 }
 .anatomy-stage .stage-label span { color: var(--gold); }
 
+/* ---------- Spine zone labels (3D projected) ---------- */
+.spine-label {
+  position: absolute;
+  pointer-events: none;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  will-change: transform, opacity;
+}
+.spine-label.visible { opacity: 1; }
+.spine-label::before {
+  content: "";
+  width: 1.8rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+  flex-shrink: 0;
+}
+.spine-label.right::before {
+  background: linear-gradient(90deg, var(--gold), transparent);
+  order: 2;
+}
+.spine-label-text {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: var(--gold);
+}
+.spine-label-text small {
+  display: block;
+  color: var(--text-3);
+  font-size: 0.5rem;
+  letter-spacing: 0.12em;
+  margin-top: 0.1rem;
+}
+
 /* ---------- Accessibility ---------- */
 :focus-visible {
   outline: 1px solid var(--gold);
@@ -1406,28 +1469,38 @@ footer ul a:hover { color: var(--gold); }
     <div class="method-grid" style="grid-template-columns:repeat(5,1fr)">
       <article class="mcard reveal d1">
         <span class="tag" data-i18n="method.c1.tag">01</span>
-        <h3 data-i18n-html="method.c1.title">Movimiento <em>eficiente</em></h3>
-        <p data-i18n="method.c1.desc">Cada ejercicio tiene un patrón correcto. Lo encontramos, lo practicamos, lo integramos a tu cuerpo.</p>
+        <div class="mcard-body">
+          <h3 data-i18n-html="method.c1.title">Movimiento <em>eficiente</em></h3>
+          <p data-i18n="method.c1.desc">Cada ejercicio tiene un patrón correcto. Lo encontramos, lo practicamos, lo integramos a tu cuerpo.</p>
+        </div>
       </article>
       <article class="mcard reveal d2">
         <span class="tag" data-i18n="method.c2.tag">02</span>
-        <h3 data-i18n-html="method.c2.title">Fuerza <em>inteligente</em></h3>
-        <p data-i18n="method.c2.desc">No se trata de levantar más, se trata de levantar mejor. Carga progresiva con propósito y control.</p>
+        <div class="mcard-body">
+          <h3 data-i18n-html="method.c2.title">Fuerza <em>inteligente</em></h3>
+          <p data-i18n="method.c2.desc">No se trata de levantar más, se trata de levantar mejor. Carga progresiva con propósito y control.</p>
+        </div>
       </article>
       <article class="mcard reveal d3">
         <span class="tag" data-i18n="method.c3.tag">03</span>
-        <h3 data-i18n-html="method.c3.title">Biomecánica <em>aplicada</em></h3>
-        <p data-i18n="method.c3.desc">Entender cómo se mueve tu cuerpo para entrenarlo como necesita, no como dice internet.</p>
+        <div class="mcard-body">
+          <h3 data-i18n-html="method.c3.title">Biomecánica <em>aplicada</em></h3>
+          <p data-i18n="method.c3.desc">Entender cómo se mueve tu cuerpo para entrenarlo como necesita, no como dice internet.</p>
+        </div>
       </article>
       <article class="mcard reveal d1">
         <span class="tag" data-i18n="method.c4.tag">04</span>
-        <h3 data-i18n-html="method.c4.title">Adaptación <em>progresiva</em></h3>
-        <p data-i18n="method.c4.desc">El plan se ajusta a tu evolución. Lo que funciona hoy se recalibra mañana según lo que el cuerpo devuelve.</p>
+        <div class="mcard-body">
+          <h3 data-i18n-html="method.c4.title">Adaptación <em>progresiva</em></h3>
+          <p data-i18n="method.c4.desc">El plan se ajusta a tu evolución. Lo que funciona hoy se recalibra mañana según lo que el cuerpo devuelve.</p>
+        </div>
       </article>
       <article class="mcard reveal d2">
         <span class="tag" data-i18n="method.c5.tag">05</span>
-        <h3 data-i18n-html="method.c5.title">Conexión <em>cuerpo-mente</em></h3>
-        <p data-i18n="method.c5.desc">Entrenar con conciencia. Sentir el músculo, controlar el movimiento, construir desde adentro.</p>
+        <div class="mcard-body">
+          <h3 data-i18n-html="method.c5.title">Conexión <em>cuerpo-mente</em></h3>
+          <p data-i18n="method.c5.desc">Entrenar con conciencia. Sentir el músculo, controlar el movimiento, construir desde adentro.</p>
+        </div>
       </article>
     </div>
   </div>
@@ -1931,27 +2004,16 @@ gsap.registerPlugin(ScrollTrigger);
       const xCurve = Math.sin(t * Math.PI * 1.4 - 0.2) * 0.28;
       const scale = 0.48 + t * 0.52;
 
-      // Vertebra body (cylinder)
       addPart(
         new THREE.CylinderGeometry(0.4 * scale, 0.44 * scale, 0.2 * scale, 10),
         [xCurve, y, 0]
       );
 
-      // Transverse processes (L/R pins)
       const procLen = 0.52 * scale;
       const procGeo = new THREE.CylinderGeometry(0.035, 0.03, procLen, 6);
-      addPart(
-        procGeo,
-        [xCurve - 0.44 * scale - procLen / 2, y, 0],
-        [0, 0, Math.PI / 2]
-      );
-      addPart(
-        procGeo,
-        [xCurve + 0.44 * scale + procLen / 2, y, 0],
-        [0, 0, Math.PI / 2]
-      );
+      addPart(procGeo, [xCurve - 0.44 * scale - procLen / 2, y, 0], [0, 0, Math.PI / 2]);
+      addPart(procGeo, [xCurve + 0.44 * scale + procLen / 2, y, 0], [0, 0, Math.PI / 2]);
 
-      // Spinous process (back pin)
       const spinousLen = 0.38 * scale;
       addPart(
         new THREE.CylinderGeometry(0.04, 0.03, spinousLen, 6),
@@ -1960,38 +2022,102 @@ gsap.registerPlugin(ScrollTrigger);
       );
     }
 
-    // Sacrum (tapered square cone)
+    // Sacrum
     addPart(
       new THREE.CylinderGeometry(0.32, 0.62, 0.9, 4),
       [-0.05, vbottom - 0.7, 0],
       [0, Math.PI / 4, 0]
     );
 
+    // ---- Torus orbital ring ----
+    const torusMat = new THREE.MeshBasicMaterial({
+      color: 0xf2c15e,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.22
+    });
+    const torus = new THREE.Mesh(
+      new THREE.TorusGeometry(1.35, 0.018, 8, 64),
+      torusMat
+    );
+    torus.rotation.x = Math.PI / 2;
+    torus.position.y = 0;
+    spine.add(torus);
+
+    // Second ring, tilted
+    const torus2 = new THREE.Mesh(
+      new THREE.TorusGeometry(1.6, 0.01, 6, 80),
+      new THREE.MeshBasicMaterial({ color: 0xd4a94a, wireframe: true, transparent: true, opacity: 0.1 })
+    );
+    torus2.rotation.x = Math.PI / 3;
+    torus2.rotation.z = Math.PI / 6;
+    torus2.position.y = -0.4;
+    spine.add(torus2);
+
     scene.add(spine);
 
-    // Subtle ambient orbiting particles
+    // Particles
     const pGeo = new THREE.BufferGeometry();
     const pCount = 60;
     const pPos = new Float32Array(pCount * 3);
     for (let i = 0; i < pCount; i++) {
       const theta = Math.random() * Math.PI * 2;
       const r = 1.8 + Math.random() * 1.2;
-      pPos[i * 3] = Math.cos(theta) * r;
+      pPos[i * 3]     = Math.cos(theta) * r;
       pPos[i * 3 + 1] = (Math.random() - 0.5) * 6;
       pPos[i * 3 + 2] = Math.sin(theta) * r;
     }
     pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
     const particles = new THREE.Points(
       pGeo,
-      new THREE.PointsMaterial({
-        color: 0xf2c15e,
-        size: 0.022,
-        transparent: true,
-        opacity: 0.5,
-        sizeAttenuation: true
-      })
+      new THREE.PointsMaterial({ color: 0xf2c15e, size: 0.022, transparent: true, opacity: 0.5, sizeAttenuation: true })
     );
     scene.add(particles);
+
+    // ---- Zone labels (DOM, projected from 3D world coords) ----
+    const zones = [
+      { label: 'Cervical', sub: 'C1 – C7', y: 2.35, side: 'left' },
+      { label: 'Torácica', sub: 'T1 – T12', y: 0.85, side: 'right' },
+      { label: 'Lumbar',   sub: 'L1 – L5', y: -0.9, side: 'left' },
+      { label: 'Sacro',    sub: 'S1 – S5',  y: -2.6, side: 'right' },
+    ];
+
+    const labelEls = zones.map(z => {
+      const el = document.createElement('div');
+      el.className = `spine-label${z.side === 'right' ? ' right' : ''}`;
+      el.innerHTML = `<div class="spine-label-text">${z.label}<small>${z.sub}</small></div>`;
+      stage.appendChild(el);
+      return { el, worldPos: new THREE.Vector3(z.side === 'left' ? -0.5 : 0.5, z.y, 0) };
+    });
+
+    // Project 3D → 2D and position DOM labels
+    const projectLabel = ({ el, worldPos }) => {
+      const pos = worldPos.clone();
+      // Apply spine group rotation to get world position
+      pos.applyEuler(spine.rotation);
+      pos.add(spine.position);
+      pos.project(camera);
+
+      const rect = stage.getBoundingClientRect();
+      const x = (pos.x * 0.5 + 0.5) * rect.width;
+      const y = (-pos.y * 0.5 + 0.5) * rect.height;
+
+      // Hide if behind camera
+      if (pos.z > 1) { el.classList.remove('visible'); return; }
+
+      el.style.left = `${x}px`;
+      el.style.top  = `${y}px`;
+      el.style.transform = 'translate(-50%, -50%)';
+      el.classList.add('visible');
+    };
+
+    // Show labels only when anatomy section is in view
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        labelEls.forEach(l => l.el.classList.toggle('visible', e.isIntersecting));
+      });
+    }, { threshold: 0.2 });
+    observer.observe(document.getElementById('anatomy'));
 
     // Resize
     const resize = () => {
@@ -2006,46 +2132,30 @@ gsap.registerPlugin(ScrollTrigger);
     const ro = new ResizeObserver(resize);
     ro.observe(stage);
 
-    // ---- GSAP ScrollTrigger: full rotation driven by scroll progress ----
+    // ---- GSAP ScrollTrigger ----
     gsap.to(spine.rotation, {
       y: Math.PI * 2,
       ease: 'none',
-      scrollTrigger: {
-        trigger: '#anatomy',
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1.2
-      }
+      scrollTrigger: { trigger: '#anatomy', start: 'top bottom', end: 'bottom top', scrub: 1.2 }
     });
     gsap.to(spine.rotation, {
       x: 0.18,
       ease: 'none',
-      scrollTrigger: {
-        trigger: '#anatomy',
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1.6
-      }
+      scrollTrigger: { trigger: '#anatomy', start: 'top bottom', end: 'bottom top', scrub: 1.6 }
     });
-    gsap.fromTo(
-      spine.position,
-      { y: 0.3 },
-      {
-        y: -0.3,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#anatomy',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1.8
-        }
-      }
-    );
+    gsap.fromTo(spine.position, { y: 0.3 }, {
+      y: -0.3,
+      ease: 'none',
+      scrollTrigger: { trigger: '#anatomy', start: 'top bottom', end: 'bottom top', scrub: 1.8 }
+    });
 
     // Render loop
     const animate = () => {
       requestAnimationFrame(animate);
       particles.rotation.y += 0.0015;
+      torus.rotation.z  += 0.003;
+      torus2.rotation.z -= 0.002;
+      labelEls.forEach(projectLabel);
       renderer.render(scene, camera);
     };
     animate();
