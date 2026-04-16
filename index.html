@@ -539,7 +539,46 @@ section + section { border-top: 1px solid var(--line); }
 @media (max-width: 1100px) { .method-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 720px) { .method-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 480px) {
-  .method-grid { grid-template-columns: 1fr; }
+  .method-grid {
+    grid-template-columns: none;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.85rem;
+    padding-bottom: 1.75rem;
+    margin-left: calc(-1 * clamp(1.5rem, 4vw, 3rem));
+    margin-right: calc(-1 * clamp(1.5rem, 4vw, 3rem));
+    padding-left: clamp(1.5rem, 4vw, 3rem);
+    padding-right: clamp(1.5rem, 4vw, 3rem);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    position: relative;
+  }
+  .method-grid::-webkit-scrollbar { display: none; }
+  .method-grid::after {
+    content: "← deslizá →";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    opacity: 0.6;
+    white-space: nowrap;
+    animation: swipe-hint 2.8s ease-in-out infinite;
+    pointer-events: none;
+  }
+  [data-lang="en"] .method-grid::after {
+    content: "← swipe →";
+  }
+  @keyframes swipe-hint {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 0.2; }
+  }
 }
 
 .mcard {
@@ -606,26 +645,61 @@ section + section { border-top: 1px solid var(--line); }
 }
 @media (max-width: 480px) {
   .mcard {
+    flex: 0 0 auto;
+    min-width: 80vw;
+    max-width: 80vw;
+    scroll-snap-align: center;
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    gap: 1.25rem;
-    padding: 1.5rem 1.25rem;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--gold);
+    background: linear-gradient(135deg, rgba(212, 169, 74, 0.04), transparent 60%);
+  }
+  .mcard:hover {
+    transform: none;
   }
   .mcard .tag {
     flex-shrink: 0;
-    font-size: 1.1rem;
-    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.5rem;
+    font-family: var(--display);
+    font-size: 1.6rem;
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: var(--gold);
     margin-bottom: 0;
-    padding-top: 0.15rem;
-    min-width: 2rem;
+    border-right: 1px solid var(--line);
+    background: rgba(212, 169, 74, 0.06);
   }
   .mcard-body {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 1.15rem 1.25rem;
+    min-height: 0;
   }
-  .mcard h3 { margin-bottom: 0.5rem; }
+  .mcard h3 {
+    font-size: clamp(1.1rem, 4.5vw, 1.3rem);
+    margin-bottom: 0.25rem;
+    line-height: 1.15;
+  }
+  .mcard p {
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: var(--text-2);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .mcard .mcard-photo { display: none; }
 }
 
 /* ---------- Flow ---------- */
@@ -1505,7 +1579,7 @@ footer ul a:hover { color: var(--gold); }
       <h2 data-i18n-html="method.title">Cinco pilares, <em>un método.</em></h2>
       <p data-i18n="method.intro">Un sistema de entrenamiento basado en la biomecánica, la fuerza inteligente y el movimiento eficiente. Cada pilar es una decisión de diseño que atraviesa todas las planificaciones.</p>
     </div>
-    <div class="method-grid" style="grid-template-columns:repeat(5,1fr)">
+    <div class="method-grid">
       <article class="mcard reveal d1">
         <span class="tag" data-i18n="method.c1.tag">01</span>
         <div class="mcard-body">
