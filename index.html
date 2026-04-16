@@ -1352,6 +1352,43 @@ footer ul a:hover { color: var(--gold); }
   margin-top: 0.1rem;
 }
 
+/* En mobile los labels flotantes se ocultan */
+@media (max-width: 720px) {
+  .spine-label { display: none !important; }
+}
+
+/* Lista estática de zonas para mobile */
+.spine-zones-mobile {
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 1.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+@media (max-width: 720px) {
+  .spine-zones-mobile { display: grid; }
+}
+.spine-zone-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.spine-zone-item strong {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 500;
+}
+.spine-zone-item span {
+  font-family: var(--mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+}
+
 /* ---------- Accessibility ---------- */
 :focus-visible {
   outline: 1px solid var(--gold);
@@ -1620,6 +1657,24 @@ footer ul a:hover { color: var(--gold); }
         <span class="stage-label">
           <span data-i18n="anatomy.label1">Lykos Spine</span> · <span data-i18n="anatomy.label2">estudio interactivo</span>
         </span>
+      </div>
+    </div>
+    <div class="spine-zones-mobile">
+      <div class="spine-zone-item">
+        <strong>Cervical</strong>
+        <span>C1 – C7</span>
+      </div>
+      <div class="spine-zone-item">
+        <strong>Torácica</strong>
+        <span>T1 – T12</span>
+      </div>
+      <div class="spine-zone-item">
+        <strong>Lumbar</strong>
+        <span>L1 – L5</span>
+      </div>
+      <div class="spine-zone-item">
+        <strong>Sacro</strong>
+        <span>S1 – S5</span>
       </div>
     </div>
   </div>
